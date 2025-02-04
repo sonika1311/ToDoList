@@ -1,10 +1,20 @@
 import { useState } from 'react'
 import './ToDoComponent.css'
+import { useEffect } from 'react';
 export const TodoComponent =()=>{
     const [inputValue,setInputValue] = useState("")
+    const [task, setTask] =useState([]);
+
+    /*useEffect(()=>{
+        console.log(task)
+        console.log(inputValue)
+    },[task,inputValue])*/
     const handleformSubmit = (event) =>{
         event.preventDefault()
-        console.log(event)
+        console.log(inputValue)
+        if(!inputValue) return;
+        setTask((prevTask) => {return [...prevTask,inputValue] }) //state update is asynchronus, but doesnt return a promise. hence use the useEffect hook to log updated value of task.
+        //console.log(task) //simple log statement returns previous value as the setTask is async
     }
     return(
         <section className="todo-container">
