@@ -5,15 +5,24 @@ export const TodoComponent =()=>{
     const [inputValue,setInputValue] = useState("")
     const [task, setTask] =useState([]);
 
-    /*useEffect(()=>{
-        console.log(task)
-        console.log(inputValue)
-    },[task,inputValue])*/
+    // useEffect(()=>{
+    //     console.log(task)
+    // },[task])
     const handleformSubmit = (event) =>{
         event.preventDefault()
-        console.log(inputValue)
+        //console.log(inputValue)
         if(!inputValue) return;
-        setTask((prevTask) => {return [...prevTask,inputValue] }) //state update is asynchronus, but doesnt return a promise. hence use the useEffect hook to log updated value of task.
+        setTask((prevTask) => {
+            try{
+                if(prevTask.indexOf(inputValue)==-1)
+                    return [...prevTask,inputValue] 
+                else return [...prevTask];
+            }
+            catch(err){
+                console.error(err)
+            }
+            
+        }) //state update is asynchronus, but doesnt return a promise. hence use the useEffect hook to log updated value of task.
         //console.log(task) //simple log statement returns previous value as the setTask is async
     }
     return(
